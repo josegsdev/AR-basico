@@ -1,6 +1,8 @@
 const express = require('express');
 var cors = require('cors');
 
+const {conexionDB}=require('../database/config.db');
+
 
 class Servidor{
 
@@ -9,8 +11,16 @@ class Servidor{
         this.port =process.env.PORT;
         this.rutaApiUsuarios='/api/usuarios';
 
+        this.conectaBaseDeDatosMongo();
+
         this.middelwareSitioEstatico();
         this.rutas();
+    }
+
+
+    async conectaBaseDeDatosMongo(){
+        // OJO OJO OJO, los await SIEMPRE dentro de un metodo async
+        const conecta=  await conexionDB();
     }
 
     middelwareSitioEstatico(){
